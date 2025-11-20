@@ -193,7 +193,7 @@ export function VoiceRecorder() {
                 </a>
               </Button>
                <Button asChild>
-                  <a href="mailto:a@agt8000.life?subject=Live longer for 8000 years without dying&body=Here is my proof of purchasing the AGT and related coins. Payment reference is.......................................................%0A%0AMy name is...........................................%0AIf possible record your voice saying any 2 to 4 words eg thegate or any then attach as mp3" >
+                  <a href="mailto:a@agt8000.life?subject=BUY%20LIFE%20EXTEND%20YOUR%20LIFE%20EASILY%20PAY%20ONLY%20US%24100%20FOR%20THE%20AGT8000%20WORTH%20US%248.4trillion&body=This%20is%20my%20proof%20of%20purchase%3A%20Amount%20Paid.......................................%0AName.........................%0AFor%20faster%20delivery%20provide%20your%20voice%20sample%20as%20mp3.%20Record%20using%20your%20smartphone%20and%20send%20then%20receive%20instantly." >
                     <Mail className="mr-2 h-4 w-4" /> Email
                   </a>
                 </Button>
