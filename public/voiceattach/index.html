@@ -1,166 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VoiceAttach</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .card {
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border-radius: 0.5rem;
-            background-color: white;
-            border: 1px solid #e5e7eb;
-        }
-        .card-header {
-            text-align: center;
-            padding: 1.5rem;
-        }
-        .icon-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        .icon-bg {
-            padding: 1rem;
-            background-color: rgba(134, 172, 172, 0.5);
-            border-radius: 9999px;
-        }
-        .card-title {
-            font-size: 1.875rem;
-            line-height: 2.25rem;
-            font-weight: 700;
-            color: #4A6C6C;
-        }
-        .card-description {
-            color: #6b7280;
-        }
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 0 1.5rem 1.5rem 1.5rem;
-        }
-        .recorder-display {
-            height: 5rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(243, 244, 246, 0.5);
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-        .button-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            white-space: nowrap;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            font-weight: 500;
-            height: 2.75rem;
-            padding: 0.5rem 2rem;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: background-color 0.2s;
-        }
-        .button-primary {
-            background-color: #4A6C6C;
-            color: white;
-        }
-        .button-primary:hover {
-            background-color: #3b5a5a;
-        }
-        .button-destructive {
-             background-color: #ef4444;
-             color: white;
-        }
-         .button-destructive:hover {
-             background-color: #dc2626;
-        }
-        .button-outline {
-            border-color: #d1d5db;
-            background-color: white;
-        }
-        .button-outline:hover {
-            background-color: #f3f4f6;
-        }
-        .button-secondary {
-            background-color: #e5e7eb;
-        }
-        .button-secondary:hover {
-            background-color: #d1d5db;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-        }
-        .card-footer {
-            padding: 1.5rem;
-            padding-top: 0;
-        }
-        .footer-text {
-            font-size: 0.75rem;
-            line-height: 1rem;
-            color: #6b7280;
-            text-align: center;
-            width: 100%;
-        }
-        a.button {
-            text-decoration: none;
-            color: inherit;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoiceAttach - Standalone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Mimicking globals.css theme for this standalone file */
+    :root {
+      --background: 0 0% 94.1%;
+      --foreground: 222.2 84% 4.9%;
+      --card: 0 0% 100%;
+      --card-foreground: 222.2 84% 4.9%;
+      --primary: 180 29% 39%;
+      --primary-foreground: 0 0% 98%;
+      --secondary: 210 33% 95%;
+      --secondary-foreground: 180 29% 25%;
+      --muted: 0 0% 96.1%;
+      --muted-foreground: 0 0% 45.1%;
+      --accent: 210 33.3% 81.2%;
+      --accent-foreground: 210 33% 20%;
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 0 0% 98%;
+      --border: 0 0% 89.8%;
+      --ring: 180 29% 39%;
+      --radius: 0.5rem;
+    }
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+    }
+    .card {
+        background-color: hsl(var(--card));
+        color: hsl(var(--card-foreground));
+        border-radius: var(--radius);
+        border: 1px solid hsl(var(--border));
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        transition: colors;
+        height: 2.75rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .btn-primary {
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+    }
+    .btn-primary:hover {
+        background-color: hsl(var(--primary) / 0.9);
+    }
+    .btn-destructive {
+        background-color: hsl(var(--destructive));
+        color: hsl(var(--destructive-foreground));
+    }
+     .btn-destructive:hover {
+        background-color: hsl(var(--destructive) / 0.9);
+    }
+    .btn-secondary {
+        background-color: hsl(var(--secondary));
+        color: hsl(var(--secondary-foreground));
+    }
+     .btn-secondary:hover {
+        background-color: hsl(var(--secondary) / 0.8);
+    }
+    .btn-outline {
+        border: 1px solid hsl(var(--border));
+        background-color: hsl(var(--background));
+    }
+     .btn-outline:hover {
+        background-color: hsl(var(--accent));
+        color: hsl(var(--accent-foreground));
+    }
+    .lucide {
+        width: 1rem;
+        height: 1rem;
+    }
+    .toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: hsl(var(--card));
+      color: hsl(var(--card-foreground));
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      z-index: 100;
+      display: none;
+      border: 1px solid hsl(var(--border));
+    }
+    .toast-destructive {
+      background-color: hsl(var(--destructive));
+      color: hsl(var(--destructive-foreground));
+      border-color: hsl(var(--destructive) / 0.5);
+    }
+    @keyframes pulse {
+      50% { opacity: .5; }
+    }
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
 </head>
-<body>
-    <div class="card">
-        <div class="card-header">
-            <div class="icon-container">
-                <div class="icon-bg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A6C6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
-                </div>
-            </div>
-            <div class="card-title">VoiceAttach</div>
-            <div class="card-description">Record, Download, Attach.</div>
-        </div>
-        <div class="card-content">
-            <div class="recorder-display">
-                <p style="color: #6b7280;">Click the record button to begin.</p>
-            </div>
-            <div class="button-container">
-                <button class="button button-primary" style="width: 100%;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
-                    Start Recording
-                </button>
+<body class="flex min-h-screen flex-col items-center justify-center p-4">
+
+  <div id="voice-recorder-card" class="card w-full max-w-md">
+    <div class="p-6 text-center">
+        <div class="flex justify-center items-center mb-4">
+            <div class="p-4 bg-accent rounded-full" style="background-color: hsl(var(--accent) / 0.5)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mic"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
             </div>
         </div>
-        <div class="card-footer">
-            <p class="footer-text">
-                Your recordings are private and processed in your browser.
-            </p>
+        <h1 class="text-3xl font-semibold tracking-tight" style="color: hsl(var(--primary)); font-family: 'PT Sans', sans-serif;">VoiceAttach</h1>
+        <p class="text-sm text-muted-foreground" style="color: hsl(var(--muted-foreground));">Record, Download, Attach.</p>
+    </div>
+
+    <div class="p-6 pt-0 flex flex-col items-center gap-6">
+        <div id="display" class="h-20 w-full flex items-center justify-center rounded-lg p-4" style="background-color: hsl(var(--muted)/0.5);">
+            <p id="placeholder-text" class="text-muted-foreground" style="color: hsl(var(--muted-foreground));">Click the record button to begin.</p>
+            <div id="timer-display" class="text-center" style="display: none;">
+                <p id="timer" class="text-5xl font-mono font-bold animate-pulse" style="color: hsl(var(--destructive));">00:00</p>
+            </div>
+            <audio id="audio-player" controls class="w-full" style="display: none;"></audio>
+        </div>
+        
+        <div id="buttons-container" class="w-full space-y-2">
+            <div id="main-button-container"></div>
+            <div id="secondary-buttons-container" class="grid grid-cols-2 gap-2" style="display: none;"></div>
+            <div id="reset-button-container" style="display: none;"></div>
         </div>
     </div>
+
+    <div class="p-6 pt-0">
+        <p class="text-xs text-muted-foreground text-center w-full" style="color: hsl(var(--muted-foreground));">
+            Your recordings are private and processed in your browser.
+        </p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    <div class="grid gap-1">
+      <p id="toast-title" class="font-semibold"></p>
+      <p id="toast-description" class="text-sm"></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let permission = false;
+      let stream = null;
+      let mediaRecorder = null;
+      let isRecording = false;
+      let audioChunks = [];
+      let audioURL = null;
+      let recordingTime = 0;
+      let timerInterval = null;
+
+      const mainButtonContainer = document.getElementById('main-button-container');
+      const secondaryButtonsContainer = document.getElementById('secondary-buttons-container');
+      const resetButtonContainer = document.getElementById('reset-button-container');
+      
+      const placeholderText = document.getElementById('placeholder-text');
+      const timerDisplay = document.getElementById('timer-display');
+      const timerEl = document.getElementById('timer');
+      const audioPlayer = document.getElementById('audio-player');
+      
+      const toastEl = document.getElementById('toast');
+      const toastTitle = document.getElementById('toast-title');
+      const toastDescription = document.getElementById('toast-description');
+      let toastTimeout;
+
+      function showToast({ title, description, variant }) {
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTitle.textContent = title;
+        toastDescription.textContent = description;
+        toastEl.classList.remove('toast-destructive');
+        if (variant === 'destructive') {
+          toastEl.classList.add('toast-destructive');
+        }
+        toastEl.style.display = 'block';
+        toastTimeout = setTimeout(() => {
+          toastEl.style.display = 'none';
+        }, 5000);
+      }
+
+      async function getMicrophonePermission() {
+        if (!("MediaRecorder" in window)) {
+          showToast({
+            variant: "destructive",
+            title: "Unsupported Browser",
+            description: "The MediaRecorder API is not available in your browser.",
+          });
+          return;
+        }
+        try {
+          const streamData = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+          permission = true;
+          stream = streamData;
+        } catch (err) {
+          showToast({
+            variant: "destructive",
+            title: "Microphone Access Denied",
+            description: "Please allow microphone access in your browser settings.",
+          });
+          permission = false;
+        }
+        renderUI();
+      }
+
+      function startRecording() {
+        if (!stream || !permission) {
+          showToast({
+            variant: "destructive",
+            title: "Microphone not ready",
+            description: "Could not start recording. Please ensure microphone access is allowed.",
+          });
+          getMicrophonePermission();
+          return;
+        }
+        
+        isRecording = true;
+        resetAudio();
+        recordingTime = 0;
+        
+        timerInterval = setInterval(() => {
+          recordingTime++;
+          renderUI();
+        }, 1000);
+
+        mediaRecorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
+        mediaRecorder.start();
+        
+        audioChunks = [];
+        mediaRecorder.ondataavailable = (event) => {
+          if (typeof event.data === "undefined" || event.data.size === 0) return;
+          audioChunks.push(event.data);
+        };
+
+        renderUI();
+      }
+
+      function stopRecording() {
+        if (!mediaRecorder) return;
+        
+        isRecording = false;
+        if (timerInterval) clearInterval(timerInterval);
+
+        mediaRecorder.stop();
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+          if (audioURL) URL.revokeObjectURL(audioURL);
+          audioURL = URL.createObjectURL(audioBlob);
+          audioChunks = [];
+          showToast({
+            title: "Recording complete!",
+            description: "You can now play, download, or email your recording.",
+          });
+          renderUI();
+        };
+      }
+
+      function resetAudio() {
+        if (audioURL) {
+          URL.revokeObjectURL(audioURL);
+          audioURL = null;
+        }
+        isRecording = false;
+        recordingTime = 0;
+        if (timerInterval) clearInterval(timerInterval);
+        renderUI();
+      }
+
+      function formatTime(time) {
+        const minutes = Math.floor(time / 60).toString().padStart(2, '0');
+        const seconds = (time % 60).toString().padStart(2, '0');
+        return `${minutes}:${seconds}`;
+      }
+      
+      function createButton(text, iconSvg, variant, clickHandler) {
+          const btn = document.createElement('button');
+          btn.className = `btn btn-${variant} w-full`;
+          btn.innerHTML = iconSvg + text;
+          btn.onclick = clickHandler;
+          return btn;
+      }
+      
+      function createLinkButton(text, iconSvg, variant, href, download = false) {
+          const a = document.createElement('a');
+          a.className = `btn btn-${variant} w-full`;
+          a.href = href;
+          a.innerHTML = iconSvg + text;
+          if (download) a.download = "voice_recording.webm";
+          return a;
+      }
+
+      function renderUI() {
+        // Clear containers
+        mainButtonContainer.innerHTML = '';
+        secondaryButtonsContainer.innerHTML = '';
+        resetButtonContainer.innerHTML = '';
+        
+        // Icon SVGs
+        const micIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>';
+        const squareIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>';
+        const downloadIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>';
+        const mailIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>';
+        const resetIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M21 21v-5h-5"/></svg>';
+
+        // Display area
+        placeholderText.style.display = !isRecording && !audioURL ? 'block' : 'none';
+        timerDisplay.style.display = isRecording ? 'block' : 'none';
+        audioPlayer.style.display = !isRecording && audioURL ? 'block' : 'none';
+        if (timerEl) timerEl.textContent = formatTime(recordingTime);
+        if (audioPlayer && audioURL) audioPlayer.src = audioURL;
+
+        // Buttons
+        if (!permission) {
+          mainButtonContainer.appendChild(createButton('Allow Microphone', micIcon, 'primary', getMicrophonePermission));
+        } else if (isRecording) {
+          mainButtonContainer.appendChild(createButton('Stop Recording', squareIcon, 'destructive', stopRecording));
+        } else if (!audioURL) {
+          mainButtonContainer.appendChild(createButton('Start Recording', micIcon, 'primary', startRecording));
+        }
+        
+        if (audioURL) {
+          secondaryButtonsContainer.style.display = 'grid';
+          resetButtonContainer.style.display = 'block';
+
+          secondaryButtonsContainer.appendChild(
+            createLinkButton('Download', downloadIcon, 'outline', audioURL, true)
+          );
+          secondaryButtonsContainer.appendChild(
+            createLinkButton('Email', mailIcon, 'primary', 'mailto:a@agt8000.life?subject=BUY%20LIFE%20EXTEND%20YOUR%20LIFE%20EASILY%20PAY%20ONLY%20US%24100%20FOR%20THE%20AGT8000%20WORTH%20US%248.4trillion&body=This%20is%20my%20proof%20of%20purchase%3A%20Amount%20Paid.......................................%0AName.........................%0AFor%20faster%20delivery%20provide%20your%20voice%20sample%20as%20mp3.%20Record%20using%20your%20smartphone%20and%20send%20then%20receive%20instantly.')
+          );
+          resetButtonContainer.appendChild(createButton('Record Again', resetIcon, 'secondary', resetAudio));
+        } else {
+          secondaryButtonsContainer.style.display = 'none';
+          resetButtonContainer.style.display = 'none';
+        }
+      }
+
+      // Initial state
+      getMicrophonePermission();
+    });
+  </script>
 </body>
 </html>
