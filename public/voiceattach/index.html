@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceAttach</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .card {
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 0.5rem;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+        }
+        .card-header {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .icon-bg {
+            padding: 1rem;
+            background-color: rgba(134, 172, 172, 0.5);
+            border-radius: 9999px;
+        }
+        .card-title {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            color: #4A6C6C;
+        }
+        .card-description {
+            color: #6b7280;
+        }
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+        .recorder-display {
+            height: 5rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(243, 244, 246, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        .button-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            font-weight: 500;
+            height: 2.75rem;
+            padding: 0.5rem 2rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background-color 0.2s;
+        }
+        .button-primary {
+            background-color: #4A6C6C;
+            color: white;
+        }
+        .button-primary:hover {
+            background-color: #3b5a5a;
+        }
+        .button-destructive {
+             background-color: #ef4444;
+             color: white;
+        }
+         .button-destructive:hover {
+             background-color: #dc2626;
+        }
+        .button-outline {
+            border-color: #d1d5db;
+            background-color: white;
+        }
+        .button-outline:hover {
+            background-color: #f3f4f6;
+        }
+        .button-secondary {
+            background-color: #e5e7eb;
+        }
+        .button-secondary:hover {
+            background-color: #d1d5db;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+        .card-footer {
+            padding: 1.5rem;
+            padding-top: 0;
+        }
+        .footer-text {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            color: #6b7280;
+            text-align: center;
+            width: 100%;
+        }
+        a.button {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <div class="icon-container">
+                <div class="icon-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A6C6C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+                </div>
+            </div>
+            <div class="card-title">VoiceAttach</div>
+            <div class="card-description">Record, Download, Attach.</div>
+        </div>
+        <div class="card-content">
+            <div class="recorder-display">
+                <p style="color: #6b7280;">Click the record button to begin.</p>
+            </div>
+            <div class="button-container">
+                <button class="button button-primary" style="width: 100%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+                    Start Recording
+                </button>
+            </div>
+        </div>
+        <div class="card-footer">
+            <p class="footer-text">
+                Your recordings are private and processed in your browser.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
